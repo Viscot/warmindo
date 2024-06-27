@@ -31,7 +31,7 @@ class AdminController extends Controller
         $totalRevenueToday = Cart::whereDate('created_at', Carbon::today())->where('status', 'done')->sum('price');
 
 
-        $monthlyRevenue = Cart::selectRaw('SUM(price) as total, MONTH(created_at) as month')
+        $monthlyRevenue = Cart::selectRaw('SUM(price) as total, EXTRACT(MONTH FROM created_at) as month')
             ->whereYear('created_at', date('Y'))
             ->where('status', 'done')
             ->groupBy('month')
